@@ -1,13 +1,19 @@
 import "~/styles/globals.css";
 
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import { cn } from "~/lib/utils";
+import { ThemeProvider } from "~/components/theme/provider";
+import { ThemeToggle } from "~/components/theme/toggle";
+import { Toaster } from "~/components/ui/sonner";
+import { OpenAIKeyProvider } from "~/components/openai/key-provider";
+import { OpenAiKeyDialog } from "~/components/openai/key-dialog";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
+// const inter = Inter({
+//   subsets: ["latin"],
+//   variable: "--font-sans",
+// });
 
 export const metadata = {
   title: "Jotta Spanish",
@@ -20,10 +26,35 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const openAIKey = process.env.OPENAI_API_KEY;
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+      {/* <body className={cn(inter.className, "antialiased")}> */}
+      <body className={cn("antialiased")}>
+        <TRPCReactProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <OpenAIKeyProvider initialKey={openAIKey}>
+              <div className="border-b py-2">
+                <div className="container flex items-center justify-between">
+                  <div className="font-mono text-base font-light">
+                    jotta-spanish
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <OpenAiKeyDialog />
+                    <ThemeToggle />
+                  </div>
+                </div>
+              </div>
+              <main className="container py-8">{children}</main>
+              <Toaster />
+            </OpenAIKeyProvider>
+          </ThemeProvider>
+        </TRPCReactProvider>
       </body>
     </html>
   );

@@ -64,6 +64,34 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
+
+  .markdown a {
+    @apply text-primary hover:brightness-90 hover:underline;
+  }
+  .markdown h1 {
+    @apply text-4xl font-bold mb-2;
+  }
+  .markdown h2 {
+    @apply text-3xl font-bold mb-2;
+  }
+  .markdown h3 {
+    @apply text-2xl font-bold mb-2;
+  }
+  .markdown h4 {
+    @apply text-xl font-bold mb-2;
+  }
+  .markdown h5 {
+    @apply text-lg font-bold mb-2;
+  }
+  .markdown h6 {
+    @apply text-base font-bold mb-2;
+  }
+  .markdown p {
+    @apply text-base mb-4;
+  }
+  .markdown ol {
+    @apply list-decimal list-inside ml-4 mb-4;
+  }
 }
 
 @layer base {
