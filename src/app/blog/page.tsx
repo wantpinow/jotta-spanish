@@ -7,16 +7,16 @@ export default async function BlogHomepage() {
   console.log("rendering blog homepage");
   return (
     <div>
-      <div className="font-lightest mb-4 text-center font-mono text-4xl uppercase">
+      <div className="mb-8 text-center font-mono text-3xl font-semibold uppercase">
         Jotta Blog
       </div>
       <div className="space-y-2">
         {allBlogParams.map((params) => {
           return (
             <Link
-              key={`/spanish/blog/${params.date}/${params.slug}`}
-              href={`/spanish/blog/${params.date}/${params.slug}`}
-              className="flex items-center justify-between bg-foreground/5 px-6 py-4 hover:bg-foreground/10"
+              key={`/blog/${params.date}/${params.slug}`}
+              href={`/blog/${params.date}/${params.slug}`}
+              className="flex items-center justify-between border bg-foreground/5 px-6 py-4 hover:bg-foreground/10"
             >
               <span>{blogTitleFromSlug(params.slug)}</span>
               <span className="text-xs font-bold text-foreground/70">

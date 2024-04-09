@@ -116,9 +116,9 @@ export const decks = createTable("deck", {
   id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   name: text("name", { length: 256 }).notNull(),
   description: text("description", { length: 256 }),
-  createdById: text("createdById", { length: 255 })
-    .notNull()
-    .references(() => users.id),
+  // createdById: text("createdById", { length: 255 })
+  //   .notNull()
+  //   .references(() => users.id),
   createdAt: int("created_at", { mode: "timestamp" })
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),

@@ -9,7 +9,12 @@ import { ThemeToggle } from "~/components/theme/toggle";
 import { Toaster } from "~/components/ui/sonner";
 import { OpenAIKeyProvider } from "~/components/openai/key-provider";
 import { OpenAiKeyDialog } from "~/components/openai/key-dialog";
+import { getServerAuthSession } from "~/server/auth";
+import { ShapesIcon } from "lucide-react";
+import Link from "next/link";
+import { Button } from "~/components/ui/button";
 
+// todo: fix fonts??
 // const inter = Inter({
 //   subsets: ["latin"],
 //   variable: "--font-sans",
@@ -21,11 +26,12 @@ export const metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerAuthSession();
   const openAIKey = process.env.OPENAI_API_KEY;
   return (
     <html lang="en">
@@ -41,16 +47,28 @@ export default function RootLayout({
             <OpenAIKeyProvider initialKey={openAIKey}>
               <div className="border-b py-2">
                 <div className="container flex items-center justify-between">
-                  <div className="font-mono text-base font-light">
-                    jotta-spanish
-                  </div>
+                  <Link href="/">
+                    <div className="text-xl font-light tracking-widest">
+                      <ShapesIcon className="mr-2.5 inline-block stroke-[1px]" />
+                      jotta
+                    </div>
+                  </Link>
                   <div className="flex items-center space-x-4">
                     <OpenAiKeyDialog />
                     <ThemeToggle />
+                    <Button variant="secondary" asChild>
+                      <Link
+                        href={
+                          session ? "/api/auth/signout" : "/api/auth/signin"
+                        }
+                      >
+                        {session ? "Logout" : "Login"}
+                      </Link>
+                    </Button>
                   </div>
                 </div>
               </div>
-              <main className="container py-8">{children}</main>
+              <main className="mx-auto max-w-4xl py-6">{children}</main>
               <Toaster />
             </OpenAIKeyProvider>
           </ThemeProvider>

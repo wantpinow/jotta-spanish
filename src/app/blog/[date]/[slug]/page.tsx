@@ -51,7 +51,7 @@ export default async function BlogPostPage({
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
           <BreadcrumbItem>
-            <BreadcrumbLink href="/spanish/blog">Blog</BreadcrumbLink>
+            <BreadcrumbLink href="/blog">Blog</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
@@ -59,7 +59,6 @@ export default async function BlogPostPage({
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
-
       <Markdown
         components={{
           h2: ({ ...props }) => (
