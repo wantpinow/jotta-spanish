@@ -140,3 +140,15 @@ export const cards = createTable("card", {
 export const cardsRelations = relations(cards, ({ one }) => ({
   deck: one(decks, { fields: [cards.deckId], references: [decks.id] }),
 }));
+
+export const vocabulary = createTable("vocabulary", {
+  id: int("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  language: text("language", { length: 255 }).$type<"spanish">().notNull(),
+  english: text("english", { length: 255 }).notNull(),
+  englishDescription: text("englishDescription", { length: 255 }),
+  translation: text("translation", { length: 255 }).notNull(),
+  translationDescription: text("translationDescription", { length: 255 }),
+  createdAt: int("created_at", { mode: "timestamp" })
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+});
