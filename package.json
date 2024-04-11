@@ -87,7 +87,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo 'foo'"
+      "pre-commit": "sh foo.sh",
     }
   }
 }
