@@ -84,5 +84,10 @@
   },
   "ct3aMetadata": {
     "initVersion": "7.30.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo 'foo'"
+    }
   }
 }
