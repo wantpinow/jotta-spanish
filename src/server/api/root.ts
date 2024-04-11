@@ -1,5 +1,6 @@
 import { postRouter } from "~/server/api/routers/post";
 import { deckRouter } from "~/server/api/routers/deck";
+import { liteLLMRouter } from "~/server/api/routers/litellm";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 
 /**
@@ -10,6 +11,7 @@ import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 export const appRouter = createTRPCRouter({
   post: postRouter,
   deck: deckRouter,
+  litellm: liteLLMRouter,
 });
 
 // export type definition of API

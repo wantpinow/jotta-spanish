@@ -2,6 +2,7 @@ import { SiGithub } from "@icons-pack/react-simple-icons";
 import { ShapesIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { LLMPlayground } from "~/components/ai/llm-playground";
 import { ThemeToggle } from "~/components/theme/toggle";
 import { Button } from "~/components/ui/button";
 
@@ -30,6 +31,7 @@ export default function Homepage() {
         </div>
       </div>
       <main className="container max-w-[700px] py-2">
+        <LLMPlayground />
         <div className="mb-4 text-center text-5xl font-black">
           I'm learning{" "}
           <span className="inline-block bg-gradient-to-b from-red-600 via-yellow-500 to-red-600 bg-clip-text text-transparent">
