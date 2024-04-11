@@ -1,0 +1,6 @@
+# download latest model prices
+
+export MODEL_PRICES_URL="https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json"
+export MODEL_PRICES_PATH="model_prices_and_context_window.json"
+
+curl -s $MODEL_PRICES_URL > $MODEL_PRICES_PATH
