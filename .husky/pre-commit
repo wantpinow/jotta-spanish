@@ -4,3 +4,5 @@ export MODEL_PRICES_URL="https://raw.githubusercontent.com/BerriAI/litellm/main/
 export MODEL_PRICES_PATH="model_prices_and_context_window.json"
 
 curl -s $MODEL_PRICES_URL > $MODEL_PRICES_PATH
+
+git add $MODEL_PRICES_PATH
