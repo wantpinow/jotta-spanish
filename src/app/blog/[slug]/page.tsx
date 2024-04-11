@@ -62,6 +62,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
         <div className="max-w-sm">
           {blog.tags.map((tag) => (
             <BlogPostTagBadge
+              key={tag}
               tag={tag}
               displayIcon={true}
               displayText={true}
@@ -74,7 +75,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
         </p>
       </div>
       <Separator className="mt-2" />
-      <MDXRemote // @ts-ignore
+      <MDXRemote // @ts-expect-error: no idea fam
         options={mdxOptions}
         source={blog.content}
         components={{ BlogPostTagBadge }}

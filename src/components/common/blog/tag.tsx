@@ -2,8 +2,6 @@ import {
   BotIcon,
   GlobeIcon,
   GraduationCapIcon,
-  Megaphone,
-  MegaphoneIcon,
   PartyPopperIcon,
 } from "lucide-react";
 import { type BlogPostTag } from "~/lib/blog";

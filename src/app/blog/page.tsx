@@ -17,8 +17,6 @@ import {
 } from "~/components/ui/pagination";
 import { BlogPostTagBadge } from "~/components/common/blog/tag";
 import { cn } from "~/lib/utils";
-import { Label } from "~/components/ui/label";
-import { Switch } from "~/components/ui/switch";
 import { DumbSwitch } from "./_components/dumb-switch";
 
 export default function BlogHomepage({
@@ -26,7 +24,7 @@ export default function BlogHomepage({
 }: {
   searchParams: URLSearchParams;
 }) {
-  // @ts-ignore
+  // @ts-expect-error: no idea fam
   const page = "page" in searchParams ? parseInt(searchParams.page) : 1;
   const allBlogs = getAllBlogs();
   const show = 5;

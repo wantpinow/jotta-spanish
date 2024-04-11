@@ -1,5 +1,3 @@
-import { LayoutIcon, SettingsIcon, ShapesIcon } from "lucide-react";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 import {
@@ -12,8 +10,6 @@ import {
 } from "~/components/ui/breadcrumb";
 import { Button } from "~/components/ui/button";
 import { api } from "~/trpc/server";
-import { SidebarLink } from "./_components/sidelink";
-import { Separator } from "~/components/ui/separator";
 
 export default async function DeckLayout({
   params,
@@ -28,23 +24,23 @@ export default async function DeckLayout({
     return redirect("/");
   }
 
-  const links = [
-    {
-      href: `/deck/${deck.id}`,
-      name: "Cards",
-      icon: LayoutIcon,
-    },
-    {
-      href: `/deck/${deck.id}/take`,
-      name: "Take",
-      icon: ShapesIcon,
-    },
-    {
-      href: `/deck/${deck.id}/manage`,
-      name: "Manage",
-      icon: SettingsIcon,
-    },
-  ];
+  // const links = [
+  //   {
+  //     href: `/deck/${deck.id}`,
+  //     name: "Cards",
+  //     icon: LayoutIcon,
+  //   },
+  //   {
+  //     href: `/deck/${deck.id}/take`,
+  //     name: "Take",
+  //     icon: ShapesIcon,
+  //   },
+  //   {
+  //     href: `/deck/${deck.id}/manage`,
+  //     name: "Manage",
+  //     icon: SettingsIcon,
+  //   },
+  // ];
   return (
     <div>
       <Breadcrumb className="mb-4">

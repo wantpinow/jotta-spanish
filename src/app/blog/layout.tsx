@@ -18,8 +18,11 @@ export default function BlogLayout({
         </Link>
         <div className="flex items-center gap-4">
           <ThemeToggle meme />
-          <Link href={"https://github.com/wantpinow/jotta-spanish"}>
-            {/* @ts-ignore */}
+          <Link
+            href={"https://github.com/wantpinow/jotta-spanish"}
+            target="_blank"
+          >
+            {/* @ts-expect-error: props are messed on this */}
             <SiGithub />
           </Link>
         </div>
