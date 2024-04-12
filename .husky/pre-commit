@@ -1,8 +1,18 @@
 # download latest model prices
 
-export MODEL_PRICES_URL="https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json"
-export MODEL_PRICES_PATH="model_prices_and_context_window.json"
+export MODEL_PRICES_URL="https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json";
+export MODEL_PRICES_PATH="src/lib/ai/llms.ts";
 
-curl -s $MODEL_PRICES_URL > $MODEL_PRICES_PATH
+printf "export const LLM_MODEL_CONFIGS=" -n > $MODEL_PRICES_PATH;
+curl -s $MODEL_PRICES_URL >> $MODEL_PRICES_PATH;
+printf "export type LLMModel = keyof typeof LLM_MODEL_CONFIGS;" >> $MODEL_PRICES_PATH;
+
+bun prettier --write $MODEL_PRICES_PATH
 
 git add $MODEL_PRICES_PATH
+
+bun prettier --write $MODEL_PRICES_PATH
+
+# run prettier
+
+# bun prettier --check "\*_/_.{ts,tsx,mdx}" --cache

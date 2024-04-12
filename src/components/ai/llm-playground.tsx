@@ -1,13 +1,15 @@
 "use client";
 
-import { useChat } from "ai/react";
-import { use, useEffect, useState } from "react";
+import { useState } from "react";
+import { type LLMCompletionResponse } from "~/app/api/chat/route";
 
 export function LLMPlayground() {
-  const [data, setData] = useState<string[]>([]);
+  const [data, setData] = useState<LLMCompletionResponse[]>([]);
 
   async function* streamingFetch() {
     const response = await fetch("/api/chat");
+    // const response = await fetch("/api/chat/stream");
+    // const response = await fetch("http://localhost:5328/api/chat/stream");
     if (!response.body) throw new Error("No body");
     // Attach Reader
     const reader = response.body.getReader();
@@ -18,14 +20,26 @@ export function LLMPlayground() {
       if (done) break;
       // Decodes data chunk and yields it
       const decoded = new TextDecoder().decode(value);
-      yield decoded;
+      let offset = 0;
+      const parsed: LLMCompletionResponse[] = [];
+      for (let idx = 0; idx < decoded.length; idx++) {
+        try {
+          parsed.push(
+            JSON.parse(decoded.slice(offset, idx + 1)) as LLMCompletionResponse,
+          );
+          offset = idx + 1;
+        } catch (e) {
+          continue;
+        }
+      }
+      yield parsed;
     }
   }
 
   async function fetchStream() {
-    for await (const chunk of streamingFetch()) {
-      setData((prev) => [...prev, chunk]);
-      console.log(chunk);
+    for await (const chunks of streamingFetch()) {
+      setData((prev) => [...prev, ...chunks]);
+      console.log(chunks);
     }
   }
 
@@ -34,29 +48,8 @@ export function LLMPlayground() {
       <button onClick={fetchStream}>Fetch</button>
       <button onClick={() => setData([])}>Clear</button>
       {data.map((d, i) => (
-        <div key={i}>{d}</div>
+        <div key={i}>{JSON.stringify(d, null, 2)}</div>
       ))}
     </div>
   );
-  //   const { messages, input, handleInputChange, handleSubmit } = useChat();
-  //   console.log(messages);
-  //   return (
-  //     <div className="stretch mx-auto flex w-full max-w-md flex-col py-24">
-  //       {messages.map((m) => (
-  //         <div key={m.id} className="whitespace-pre-wrap">
-  //           {m.role === "user" ? "User: " : "AI: "}
-  //           {m.content}
-  //         </div>
-  //       ))}
-
-  //       <form onSubmit={handleSubmit}>
-  //         <input
-  //           className="fixed bottom-0 mb-8 w-full max-w-md rounded border border-gray-300 p-2 shadow-xl"
-  //           value={input}
-  //           placeholder="Say something..."
-  //           onChange={handleInputChange}
-  //         />
-  //       </form>
-  //     </div>
-  //   );
 }

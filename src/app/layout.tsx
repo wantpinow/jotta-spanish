@@ -25,21 +25,23 @@ export default async function RootLayout({
 }) {
   const openAIKey = process.env.OPENAI_API_KEY;
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.className, "antialiased")}>
-        <TRPCReactProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <OpenAIKeyProvider initialKey={openAIKey}>
-              {children}
-              <Toaster />
-            </OpenAIKeyProvider>
-          </ThemeProvider>
-        </TRPCReactProvider>
+        <div>
+          <TRPCReactProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <OpenAIKeyProvider initialKey={openAIKey}>
+                {children}
+                <Toaster />
+              </OpenAIKeyProvider>
+            </ThemeProvider>
+          </TRPCReactProvider>
+        </div>
       </body>
     </html>
   );

@@ -1,8 +1,8 @@
 ---
 title: The Jotta Stack
-date: '04/09/2024'
+date: "04/09/2024"
 description: T3, Vercel, Turso, OpenAI, Huggingface, MDX
-tags: ['Artificial Intelligence', 'Web Development']
+tags: ["Artificial Intelligence", "Web Development"]
 published: true
 ---
 
@@ -11,27 +11,28 @@ In this post, I'll go over the current stack I'm using to develop the Jotta webs
 As always, the code for this project is available on [GitHub](https://github.com/wantpinow/jotta-spanish).
 
 ## The T3 Stack
+
 This project was created using the [create-t3-app](https://create.t3.gg/en/introduction) CLI tool. This scaffolds a new project with the following technologies:
 
-* [Next.js](https://nextjs.org/) (app router): A React framework for all the frontend and backend code. Allows for traditional React client components, server-side rendering, static site generation, and API routes all in the same codebase.
-* [tRPC](https://trpc.io/): A type-safe RPC framework for TypeScript. We define our server-side APIs in one place, and get type-safe client-side code for free. 
-* [Tailwind CSS](https://tailwindcss.com/): I literally can't write normal CSS anymore.
-* [TypeScript](https://www.TypeScriptlang.org/): Who tf still writes js 🥴?
+- [Next.js](https://nextjs.org/) (app router): A React framework for all the frontend and backend code. Allows for traditional React client components, server-side rendering, static site generation, and API routes all in the same codebase.
+- [tRPC](https://trpc.io/): A type-safe RPC framework for TypeScript. We define our server-side APIs in one place, and get type-safe client-side code for free.
+- [Tailwind CSS](https://tailwindcss.com/): I literally can't write normal CSS anymore.
+- [TypeScript](https://www.TypeScriptlang.org/): Who tf still writes js 🥴?
 
 For auth and deployment, I use the following technologies/providers (recommended by T3, but not mandatory):
 
-* [Vercel](https://vercel.com/): The best hosting provider for Next.js applications. It's mad how easy it is to deploy a new project and set up proper CI/CD pipelines.
-* [Drizzle ORM](https://orm.drizzle.team/): A nice enough ORM that still lets you raw dog SQL when you need to.
-* [NextAuth.js](https://next-auth.js.org/): Self hosted auth that supports a bunch of different auth providers (Google, Facebook, etc). The T3 CLI does all of the hard work for you.
-* [Turso](https://turso.tech/): No frills SQLite hosting with a generous free tier. Ez pz to set up and use.
+- [Vercel](https://vercel.com/): The best hosting provider for Next.js applications. It's mad how easy it is to deploy a new project and set up proper CI/CD pipelines.
+- [Drizzle ORM](https://orm.drizzle.team/): A nice enough ORM that still lets you raw dog SQL when you need to.
+- [NextAuth.js](https://next-auth.js.org/): Self hosted auth that supports a bunch of different auth providers (Google, Facebook, etc). The T3 CLI does all of the hard work for you.
+- [Turso](https://turso.tech/): No frills SQLite hosting with a generous free tier. Ez pz to set up and use.
 
 ## AI Tech
 
 The goal of this project is to push the boundaries of what's possible using AI for language learning. As such, we'll be throwing LLMs, lemmatisers, entity recognisers, embedding models, and all sorts of other NLP tools at the problem. Here's a preliminary list of the tools I'll be using:
 
-* [OpenAI API](https://platform.openai.com/docs/introduction): because obviously. We'll use this as a baseline for all text generation tasks, until we start experimenting with self-hosted / fine-tuned models.
-* [Hugging Face Inference Endpoints](https://huggingface.co/inference-endpoints): One-click deployment of any model on Hugging Face model. Scales to zero, so it ends up being basically free. We'll use this for hosting our non-generative models.
-* [Instructor.js](https://github.com/instructor-ai/instructor-js): A nice, lightweight library for extracting structured outputs from LLMs. Lots of cool things we will do with this 👀.
+- [OpenAI API](https://platform.openai.com/docs/introduction): because obviously. We'll use this as a baseline for all text generation tasks, until we start experimenting with self-hosted / fine-tuned models.
+- [Hugging Face Inference Endpoints](https://huggingface.co/inference-endpoints): One-click deployment of any model on Hugging Face model. Scales to zero, so it ends up being basically free. We'll use this for hosting our non-generative models.
+- [Instructor.js](https://github.com/instructor-ai/instructor-js): A nice, lightweight library for extracting structured outputs from LLMs. Lots of cool things we will do with this 👀.
 
 ## Static Content
 

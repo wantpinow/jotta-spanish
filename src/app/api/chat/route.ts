@@ -1,4 +1,8 @@
-import { completion } from "litellm";
+import OpenAI from "openai";
+import { encoding_for_model } from "tiktoken";
+import { LLM_MODEL_CONFIGS, type LLMModel } from "~/lib/ai/llms";
+
+const openai = new OpenAI();
 
 // https://developer.mozilla.org/docs/Web/API/ReadableStream#convert_async_iterator_to_stream
 function iteratorToStream(iterator: any) {
@@ -14,34 +18,68 @@ function iteratorToStream(iterator: any) {
   });
 }
 
-function sleep(time: number) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, time);
-  });
-}
-
 const encoder = new TextEncoder();
 
-async function* makeIterator3() {
-  const foo = await completion({
+export type LLMCompletionResponse = {
+  content: string;
+  inputTokens: number;
+  inputCost: number;
+  outputTokens: number;
+  outputCost: number;
+  chunk: boolean;
+};
+
+async function* openAIGenerator() {
+  //
+  const model: LLMModel = "gpt-3.5-turbo";
+  const prompt = "Hello, how are you?";
+
+  //
+  const encoding = encoding_for_model(model);
+  const inputCostPerToken = LLM_MODEL_CONFIGS[model].input_cost_per_token;
+  const outputCostPerToken = LLM_MODEL_CONFIGS[model].output_cost_per_token;
+
+  //
+  const inputTokens = encoding.encode(prompt).length;
+  const inputCost = inputTokens * inputCostPerToken;
+
+  //
+  const stream = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
-    messages: [{ content: "Hello, how are you?", role: "user" }],
+    messages: [{ content: prompt, role: "user" }],
     stream: true,
   });
 
-  for await (const chunk of foo) {
+  let text = "";
+  for await (const chunk of stream) {
     const content = chunk.choices[0]?.delta?.content || "";
-    console.log(chunk);
-    yield encoder.encode(content);
+    if (!content) continue;
+    const outputTokens = encoding.encode(content).length;
+    const response: LLMCompletionResponse = {
+      content,
+      inputTokens,
+      inputCost,
+      outputTokens,
+      outputCost: outputTokens * outputCostPerToken,
+      chunk: true,
+    };
+    text += content;
+    yield encoder.encode(JSON.stringify(response));
   }
+
+  const totalTokens = encoding.encode(text).length;
+  const overallResponse: LLMCompletionResponse = {
+    content: text,
+    inputTokens,
+    inputCost,
+    outputTokens: totalTokens,
+    outputCost: totalTokens * outputCostPerToken,
+    chunk: false,
+  };
+  yield encoder.encode(JSON.stringify(overallResponse));
 }
 
 export async function GET() {
-  // const iterator = makeIterator();
-
-  // or stream the results
-
-  const stream = iteratorToStream(makeIterator3());
-
+  const stream = iteratorToStream(openAIGenerator());
   return new Response(stream);
 }

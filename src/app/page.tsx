@@ -40,7 +40,13 @@ export default function Homepage() {
           🇪🇸
         </div>
         <div className="relative mb-2 h-72 w-full overflow-clip rounded-lg">
-          <Image src="/spanish.png" alt="Spanish" fill objectFit="cover" />
+          <Image
+            src="/spanish.png"
+            alt="Spanish"
+            fill
+            priority
+            className="object-cover"
+          />
         </div>
         <div className="mb-8 text-center text-base font-light text-foreground/70">
           And by 'learning spanish', I mean spending 6 months building yet
