@@ -34,8 +34,8 @@ jobs:
       - name: Initialize Example .env.local
         run: cp .env.example .env.local
 
-      - name: Prepare
-        run: bun prepare
+      # - name: Prepare
+      #   run: bun prepare
 
       - name: Lint
         run: bun run lint
