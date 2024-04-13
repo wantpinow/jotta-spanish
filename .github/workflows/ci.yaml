@@ -18,6 +18,9 @@ jobs:
         with:
           bun-version: latest
 
+      - name: Initialize Example .env
+        run: source .env.example
+
       - name: Install Dependencies
         run: bun install
 
