@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - "*"
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Dependencies
+        - uses: oven-sh/setup-bun@v1
+          with:
+            bun-version: latest
+
+      - name: Prepare
+        run: bun prepare
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Test
+        run: bun run test
