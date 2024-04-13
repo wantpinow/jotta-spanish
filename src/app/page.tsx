@@ -33,7 +33,7 @@ export default function Homepage() {
       <main className="container max-w-[700px] py-2">
         <LLMPlayground />
         <div className="mb-4 text-center text-5xl font-black">
-          I'm learning{" "}
+          I&apos;m learning{" "}
           <span className="inline-block bg-gradient-to-b from-red-600 via-yellow-500 to-red-600 bg-clip-text text-transparent">
             Spanish
           </span>{" "}
@@ -49,9 +49,9 @@ export default function Homepage() {
           />
         </div>
         <div className="mb-8 text-center text-base font-light text-foreground/70">
-          And by 'learning spanish', I mean spending 6 months building yet
-          another a language learning app, instead of actually doing something
-          useful with my time.
+          And by &apos;learning spanish&apos;, I mean spending 6 months building
+          yet another a language learning app, instead of actually doing
+          something useful with my time.
         </div>
         <div className="flex justify-center gap-4">
           <Button variant="secondary" size="lg" asChild>

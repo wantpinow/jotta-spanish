@@ -5,7 +5,7 @@ import { LLM_MODEL_CONFIGS, type LLMModel } from "~/lib/ai/llms";
 const openai = new OpenAI();
 
 // https://developer.mozilla.org/docs/Web/API/ReadableStream#convert_async_iterator_to_stream
-function iteratorToStream(iterator: any) {
+function iteratorToStream(iterator: AsyncGenerator<Uint8Array, void, unknown>) {
   return new ReadableStream({
     async pull(controller) {
       const { value, done } = await iterator.next();
@@ -52,7 +52,7 @@ async function* openAIGenerator() {
 
   let text = "";
   for await (const chunk of stream) {
-    const content = chunk.choices[0]?.delta?.content || "";
+    const content = chunk.choices[0]?.delta?.content ?? "";
     if (!content) continue;
     const outputTokens = encoding.encode(content).length;
     const response: LLMCompletionResponse = {
