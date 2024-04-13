@@ -18,11 +18,21 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Initialize Example .env.local
-        run: cp .env.example .env.local
+      - name: Cache Bun
+        id: cache-bun
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-${{ matrix.bun }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.bun }}-bun-
 
       - name: Install Dependencies
+        if: steps.cache-bun.outputs.cache-hit != 'true'
         run: bun install
+
+      - name: Initialize Example .env.local
+        run: cp .env.example .env.local
 
       - name: Prepare
         run: bun prepare
