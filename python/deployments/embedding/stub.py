@@ -1,10 +1,12 @@
 import os
-from time import time
 
 import modal
 
 MODEL_DIR = "/model"
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+
+
+stub = modal.Stub("embedding-cpu")
 
 
 def download_model_to_image(model_dir, model_name):
@@ -16,7 +18,7 @@ def download_model_to_image(model_dir, model_name):
     snapshot_download(
         model_name,
         local_dir=model_dir,
-        ignore_patterns=["*.pt", "*.bin"],  # Using safetensors
+        ignore_patterns=["*.pt", "*.bin", "*.h5", "*.ot"],  # Using safetensors
     )
     move_cache()
 
@@ -33,29 +35,15 @@ image = (
 )
 
 
-stub = modal.Stub("example-embedding-cpu")
-
-
 @stub.cls(image=image, enable_memory_snapshot=True, concurrency_limit=1)
 class Model:
     @modal.enter(snap=True)
     def start_engine(self):
-        start_time = time()
         from sentence_transformers import SentenceTransformer
 
         self.model = SentenceTransformer(MODEL_DIR)
-        print("Time taken to load model:", time() - start_time)
 
     @modal.method()
     def predict(self, text: str):
-        start_time = time()
-        prediction = self.model.encode(text)
-        print("Time taken to predict:", time() - start_time)
+        prediction = self.model.encode(text).tolist()
         return prediction
-
-
-@stub.local_entrypoint()
-def main():
-    query = "What is the meaning of life?"
-    model = Model()
-    print(model.predict.remote(query))

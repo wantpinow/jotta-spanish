@@ -714,6 +714,7 @@ export const LLM_MODEL_CONFIGS = {
     output_cost_per_token: 0.0000008,
     litellm_provider: "groq",
     mode: "chat",
+    supports_function_calling: true,
   },
   "groq/mixtral-8x7b-32768": {
     max_tokens: 32768,
@@ -723,6 +724,7 @@ export const LLM_MODEL_CONFIGS = {
     output_cost_per_token: 0.00000027,
     litellm_provider: "groq",
     mode: "chat",
+    supports_function_calling: true,
   },
   "groq/gemma-7b-it": {
     max_tokens: 8192,
@@ -732,6 +734,7 @@ export const LLM_MODEL_CONFIGS = {
     output_cost_per_token: 0.0000001,
     litellm_provider: "groq",
     mode: "chat",
+    supports_function_calling: true,
   },
   "claude-instant-1.2": {
     max_tokens: 8191,
@@ -1105,7 +1108,8 @@ export const LLM_MODEL_CONFIGS = {
       "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#foundation_models",
   },
   "vertex_ai/claude-3-sonnet@20240229": {
-    max_tokens: 200000,
+    max_tokens: 4096,
+    max_input_tokens: 200000,
     max_output_tokens: 4096,
     input_cost_per_token: 0.000003,
     output_cost_per_token: 0.000015,
@@ -1113,10 +1117,20 @@ export const LLM_MODEL_CONFIGS = {
     mode: "chat",
   },
   "vertex_ai/claude-3-haiku@20240307": {
-    max_tokens: 200000,
+    max_tokens: 4096,
+    max_input_tokens: 200000,
     max_output_tokens: 4096,
     input_cost_per_token: 0.00000025,
     output_cost_per_token: 0.00000125,
+    litellm_provider: "vertex_ai-anthropic_models",
+    mode: "chat",
+  },
+  "vertex_ai/claude-3-opus@20240229": {
+    max_tokens: 4096,
+    max_input_tokens: 200000,
+    max_output_tokens: 4096,
+    input_cost_per_token: 0.0000015,
+    output_cost_per_token: 0.0000075,
     litellm_provider: "vertex_ai-anthropic_models",
     mode: "chat",
   },

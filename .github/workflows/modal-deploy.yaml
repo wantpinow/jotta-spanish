@@ -23,9 +23,14 @@ jobs:
           python -m pip install --upgrade pip
           pip install modal
 
-      - name: Deploy job
+      - name: Deploy Models
         run: |
-          find python/deployments -maxdepth 2 -type f -path '*/stub.py' -exec sh -c 'modal deploy python.deployments.$(basename $(dirname {})).stub' \;
+          find python/deployments -maxdepth 2 -type f -path '*/stub.py' -exec sh -c 'modal deploy --env ${MODAL_ENV} python.deployments.$(basename $(dirname {})).stub' \;
+
+      - name: Deploy Router
+        run: |
+          modal deploy --env ${MODAL_ENV} python.router
     env:
       MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
       MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
+      MODAL_ENV: ${{ vars.MODAL_ENV }}

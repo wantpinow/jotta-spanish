@@ -12,6 +12,7 @@ ipykernel = "^6.29.4"
 python-dotenv = "^1.0.1"
 modal = "^0.62.58"
 sentence-transformers = "^2.6.1"
+spacy = "^3.7.4"
 
 
 [build-system]
