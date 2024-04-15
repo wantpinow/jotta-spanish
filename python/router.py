@@ -3,6 +3,7 @@ import os
 import modal
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from pydantic import BaseModel
 
 # initialize the stub
 stub = modal.Stub("router")
@@ -31,14 +32,29 @@ async def ping():
     return {"message": "success"}
 
 
-@web_app.get("/embed")
+class EmbeddingResponse(BaseModel):
+    data: list[float]
+
+
+@web_app.get("/embed", response_model=EmbeddingResponse)
 async def embed(text: str):
-    return {"result": embedding_model.predict.remote(text)}
+    return {"data": embedding_model.predict.remote(text)}
 
 
-@web_app.get("/process")
+class SpacyToken(BaseModel):
+    text: str
+    pos: str
+    dep: str
+    lemma: str
+
+
+class SpacyProcessResponse(BaseModel):
+    data: list[SpacyToken]
+
+
+@web_app.get("/process", response_model=SpacyProcessResponse)
 async def process(text: str):
-    return {"result": spacy_model.process.remote(text)}
+    return {"data": spacy_model.process.remote(text)}
 
 
 @stub.function(

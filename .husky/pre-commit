@@ -14,5 +14,4 @@ git add $MODEL_PRICES_PATH
 bun prettier --write $MODEL_PRICES_PATH
 
 # run prettier
-
-# bun prettier --check "\*_/_.{ts,tsx,mdx}" --cache
+bun prettier --check "**/*.{ts,tsx,mdx}" --write --cache

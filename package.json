@@ -7,6 +7,7 @@
     "build": "next build",
     "db:push": "drizzle-kit push:sqlite",
     "db:studio": "drizzle-kit studio",
+    "generate-client":"openapi-ts --input https://${MODAL_USER}-${MODAL_ENV}--${MODAL_ROUTER_APP}.modal.run/openapi.json --output ./src/lib/python_client",
     "dev": "next dev --turbo",
     "lint": "next lint",
     "start": "next start",
@@ -66,6 +67,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@hey-api/openapi-ts": "^0.38.1",
     "@tailwindcss/typography": "^0.5.12",
     "@types/better-sqlite3": "^7.6.9",
     "@types/eslint": "^8.56.2",
