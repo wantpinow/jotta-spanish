@@ -19,6 +19,10 @@ export const roleSchema = z.union([
   z.literal("assistant"),
 ]);
 
+export const pingResponseSchema = z.object({
+  message: z.string(),
+});
+
 export const spacyTokenSchema = z.object({
   text: z.string(),
   pos: z.string(),
@@ -45,6 +49,13 @@ export const chatStreamRequestSchema = z.object({
 });
 
 export const openApiTsSchema = z.object({
+  "/": z.object({
+    get: z.object({
+      res: z.object({
+        200: pingResponseSchema,
+      }),
+    }),
+  }),
   "/embed": z.object({
     get: z.object({
       req: z.object({
@@ -52,16 +63,6 @@ export const openApiTsSchema = z.object({
       }),
       res: z.object({
         200: embeddingResponseSchema,
-      }),
-    }),
-  }),
-  foo: z.object({
-    get: z.object({
-      req: z.object({
-        text: z.string(),
-      }),
-      res: z.object({
-        200: z.unknown(),
       }),
     }),
   }),
@@ -86,6 +87,3 @@ export const openApiTsSchema = z.object({
     }),
   }),
 });
-
-export const embedEmbedGetReqSchema =
-  openApiTsSchema.shape["/embed"].shape["get"].shape["req"];

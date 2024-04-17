@@ -3,8 +3,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Textarea } from "~/components/ui/textarea";
-import { env } from "~/env";
-import { DefaultService } from "~/lib/python_client";
 import { api } from "~/trpc/react";
 
 export const MessageAnalysisContext = createContext<
@@ -39,7 +37,7 @@ export function MessageAnalysisProvider({
 
   useEffect(() => {
     embed.mutate({ text: value });
-  }, [value]);
+  }, [value, embed]);
 
   useEffect(() => {
     if (embedding === undefined) {
@@ -77,7 +75,7 @@ export function ChatAnalysis() {
 }
 
 export function MessageAnalysis() {
-  const { value, setValue, embedding, loading } = useMessageAnalysis();
+  const { value, setValue, loading } = useMessageAnalysis();
   const [inputValue, setInputValue] = useState<string>(value);
   return (
     <div className="space-y-2">

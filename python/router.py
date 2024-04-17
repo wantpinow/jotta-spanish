@@ -40,7 +40,11 @@ spacy_model = modal.Cls.lookup("spacy-es-cpu", "Model")
 
 
 # ping
-@web_app.get("/")
+class PingResponse(BaseModel):
+    message: str
+
+
+@web_app.get("/", response_model=PingResponse)
 async def ping():
     return {"message": "success"}
 

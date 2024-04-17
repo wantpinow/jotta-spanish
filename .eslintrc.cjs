@@ -39,5 +39,6 @@ const config = {
     "drizzle/enforce-delete-with-where": "error",
     "drizzle/enforce-update-with-where": "error",
   },
+  ignorePatterns: ["src/lib/python_client"],
 };
 module.exports = config;

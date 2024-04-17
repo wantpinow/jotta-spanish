@@ -23,6 +23,10 @@ export type Message = {
   content: string;
 };
 
+export type PingResponse = {
+  message: string;
+};
+
 /**
  * An enumeration.
  */
@@ -46,16 +50,16 @@ export type ValidationError = {
 };
 
 export type $OpenApiTs = {
-  // "/": {
-  //   get: {
-  //     res: {
-  //       /**
-  //        * Successful Response
-  //        */
-  //       200: unknown;
-  //     };
-  //   };
-  // };
+  "/": {
+    get: {
+      res: {
+        /**
+         * Successful Response
+         */
+        200: PingResponse;
+      };
+    };
+  };
   "/embed": {
     get: {
       req: {

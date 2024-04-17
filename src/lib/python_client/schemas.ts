@@ -69,6 +69,18 @@ export const $Message = {
   },
 } as const;
 
+export const $PingResponse = {
+  title: "PingResponse",
+  required: ["message"],
+  type: "object",
+  properties: {
+    message: {
+      title: "Message",
+      type: "string",
+    },
+  },
+} as const;
+
 export const $Role = {
   title: "Role",
   enum: ["system", "user", "assistant"],
