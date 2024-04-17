@@ -1,7 +1,7 @@
 import { SiGithub } from "@icons-pack/react-simple-icons";
 import { ShapesIcon } from "lucide-react";
 import Link from "next/link";
-import { ChatAnalysis } from "~/app/chat-analysis";
+import { ChatAnalysis } from "~/app/playground/_components/chat-analysis";
 import { ThemeToggle } from "~/components/theme/toggle";
 
 export default function PlaygroundPage() {

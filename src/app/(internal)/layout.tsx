@@ -6,6 +6,7 @@ import { getServerAuthSession } from "~/server/auth";
 import { ShapesIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
+import { env } from "~/env";
 
 export default async function RootLayout({
   children,
@@ -13,7 +14,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerAuthSession();
-  const openAIKey = process.env.OPENAI_API_KEY;
+  const openAIKey = env.OPENAI_API_KEY;
   return (
     <>
       <div className="border-b py-2">

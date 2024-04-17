@@ -11,7 +11,7 @@ export const LLM_MODEL_CONFIGS = {
   },
   "gpt-4-turbo-preview": {
     max_tokens: 4096,
-    max_input_tokens: 8192,
+    max_input_tokens: 128000,
     max_output_tokens: 4096,
     input_cost_per_token: 0.00001,
     output_cost_per_token: 0.00003,
@@ -76,6 +76,7 @@ export const LLM_MODEL_CONFIGS = {
     mode: "chat",
     supports_function_calling: true,
     supports_parallel_function_calling: true,
+    supports_vision: true,
   },
   "gpt-4-turbo-2024-04-09": {
     max_tokens: 4096,
@@ -87,6 +88,7 @@ export const LLM_MODEL_CONFIGS = {
     mode: "chat",
     supports_function_calling: true,
     supports_parallel_function_calling: true,
+    supports_vision: true,
   },
   "gpt-4-1106-preview": {
     max_tokens: 4096,
@@ -118,6 +120,7 @@ export const LLM_MODEL_CONFIGS = {
     output_cost_per_token: 0.00003,
     litellm_provider: "openai",
     mode: "chat",
+    supports_vision: true,
   },
   "gpt-4-1106-vision-preview": {
     max_tokens: 4096,
@@ -127,6 +130,7 @@ export const LLM_MODEL_CONFIGS = {
     output_cost_per_token: 0.00003,
     litellm_provider: "openai",
     mode: "chat",
+    supports_vision: true,
   },
   "gpt-3.5-turbo": {
     max_tokens: 4097,
@@ -209,6 +213,7 @@ export const LLM_MODEL_CONFIGS = {
   "text-embedding-3-large": {
     max_tokens: 8191,
     max_input_tokens: 8191,
+    output_vector_size: 3072,
     input_cost_per_token: 0.00000013,
     output_cost_per_token: 0.0,
     litellm_provider: "openai",
@@ -217,6 +222,7 @@ export const LLM_MODEL_CONFIGS = {
   "text-embedding-3-small": {
     max_tokens: 8191,
     max_input_tokens: 8191,
+    output_vector_size: 1536,
     input_cost_per_token: 0.00000002,
     output_cost_per_token: 0.0,
     litellm_provider: "openai",
@@ -225,6 +231,7 @@ export const LLM_MODEL_CONFIGS = {
   "text-embedding-ada-002": {
     max_tokens: 8191,
     max_input_tokens: 8191,
+    output_vector_size: 1536,
     input_cost_per_token: 0.0000001,
     output_cost_per_token: 0.0,
     litellm_provider: "openai",
@@ -410,6 +417,7 @@ export const LLM_MODEL_CONFIGS = {
     output_cost_per_token: 0.00003,
     litellm_provider: "azure",
     mode: "chat",
+    supports_vision: true,
   },
   "azure/gpt-35-turbo-16k-0613": {
     max_tokens: 4096,
@@ -1074,6 +1082,7 @@ export const LLM_MODEL_CONFIGS = {
     litellm_provider: "vertex_ai-vision-models",
     mode: "chat",
     supports_function_calling: true,
+    supports_vision: true,
     source:
       "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#foundation_models",
   },
@@ -1089,6 +1098,7 @@ export const LLM_MODEL_CONFIGS = {
     litellm_provider: "vertex_ai-vision-models",
     mode: "chat",
     supports_function_calling: true,
+    supports_vision: true,
     source:
       "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#foundation_models",
   },
@@ -1104,6 +1114,7 @@ export const LLM_MODEL_CONFIGS = {
     litellm_provider: "vertex_ai-vision-models",
     mode: "chat",
     supports_function_calling: true,
+    supports_vision: true,
     source:
       "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#foundation_models",
   },
@@ -1179,6 +1190,28 @@ export const LLM_MODEL_CONFIGS = {
       "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#foundation_models",
   },
   "textembedding-gecko@003": {
+    max_tokens: 3072,
+    max_input_tokens: 3072,
+    output_vector_size: 768,
+    input_cost_per_token: 0.00000000625,
+    output_cost_per_token: 0,
+    litellm_provider: "vertex_ai-embedding-models",
+    mode: "embedding",
+    source:
+      "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#foundation_models",
+  },
+  "text-embedding-preview-0409": {
+    max_tokens: 3072,
+    max_input_tokens: 3072,
+    output_vector_size: 768,
+    input_cost_per_token: 0.00000000625,
+    input_cost_per_token_batch_requests: 0.000000005,
+    output_cost_per_token: 0,
+    litellm_provider: "vertex_ai-embedding-models",
+    mode: "embedding",
+    source: "https://cloud.google.com/vertex-ai/generative-ai/pricing",
+  },
+  "text-multilingual-embedding-preview-0409": {
     max_tokens: 3072,
     max_input_tokens: 3072,
     output_vector_size: 768,
@@ -1276,8 +1309,21 @@ export const LLM_MODEL_CONFIGS = {
     litellm_provider: "gemini",
     mode: "chat",
     supports_function_calling: true,
+    supports_vision: true,
     source:
       "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#foundation_models",
+  },
+  "gemini/gemini-1.5-pro-latest": {
+    max_tokens: 8192,
+    max_input_tokens: 1048576,
+    max_output_tokens: 8192,
+    input_cost_per_token: 0,
+    output_cost_per_token: 0,
+    litellm_provider: "gemini",
+    mode: "chat",
+    supports_function_calling: true,
+    supports_vision: true,
+    source: "https://ai.google.dev/models/gemini",
   },
   "gemini/gemini-pro-vision": {
     max_tokens: 2048,
@@ -1288,6 +1334,7 @@ export const LLM_MODEL_CONFIGS = {
     litellm_provider: "gemini",
     mode: "chat",
     supports_function_calling: true,
+    supports_vision: true,
     source:
       "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#foundation_models",
   },
@@ -1749,6 +1796,15 @@ export const LLM_MODEL_CONFIGS = {
     max_output_tokens: 4096,
     input_cost_per_token: 0.00000025,
     output_cost_per_token: 0.00000125,
+    litellm_provider: "bedrock",
+    mode: "chat",
+  },
+  "anthropic.claude-3-opus-20240229-v1:0": {
+    max_tokens: 4096,
+    max_input_tokens: 200000,
+    max_output_tokens: 4096,
+    input_cost_per_token: 0.000015,
+    output_cost_per_token: 0.000075,
     litellm_provider: "bedrock",
     mode: "chat",
   },

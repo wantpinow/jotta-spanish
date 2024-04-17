@@ -6,6 +6,8 @@ import { cn } from "~/lib/utils";
 import { ThemeProvider } from "~/components/theme/provider";
 import { Toaster } from "~/components/ui/sonner";
 import { OpenAIKeyProvider } from "~/components/openai/key-provider";
+import { OpenAPI } from "~/lib/python_client";
+import { env } from "~/env";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,7 +25,18 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const openAIKey = process.env.OPENAI_API_KEY;
+  const openAIKey = env.OPENAI_API_KEY;
+
+  OpenAPI.BASE = `https://${env.MODAL_USER}-${env.MODAL_ENV}--${env.MODAL_ROUTER_APP}.modal.run`;
+  OpenAPI.interceptors.request.use((request) => {
+    // add headers
+    request.headers = {
+      ...request.headers,
+      Authorization: `Bearer ${env.MODAL_ROUTER_AUTH_TOKEN}`,
+    };
+    return request; // <-- must return request
+  });
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.className, "antialiased")}>

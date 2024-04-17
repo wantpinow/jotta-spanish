@@ -1,8 +1,13 @@
 import os
+from enum import Enum
 
 import modal
 from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from litellm import completion
+from modal import Image
 from pydantic import BaseModel
 
 # initialize the stub
@@ -20,6 +25,13 @@ async def verify_token(token: HTTPAuthorizationCredentials = Depends(HTTPBearer(
 
 
 web_app = FastAPI(dependencies=[Depends(verify_token)])
+web_app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 # load references to modal functions / classes here
@@ -27,11 +39,13 @@ embedding_model = modal.Cls.lookup("embedding-cpu", "Model")
 spacy_model = modal.Cls.lookup("spacy-es-cpu", "Model")
 
 
+# ping
 @web_app.get("/")
 async def ping():
     return {"message": "success"}
 
 
+# embedding
 class EmbeddingResponse(BaseModel):
     data: list[float]
 
@@ -41,6 +55,7 @@ async def embed(text: str):
     return {"data": embedding_model.predict.remote(text)}
 
 
+# spacy processing
 class SpacyToken(BaseModel):
     text: str
     pos: str
@@ -57,10 +72,50 @@ async def process(text: str):
     return {"data": spacy_model.process.remote(text)}
 
 
+# chat
+class AvailableModels(str, Enum):
+    gpt_3_5_turbo = "gpt-3.5-turbo"
+
+
+class Role(str, Enum):
+    system = "system"
+    user = "user"
+    assistant = "assistant"
+
+
+class Message(BaseModel):
+    role: Role
+    content: str
+
+
+class ChatStreamRequest(BaseModel):
+    messages: list[Message]
+    model: AvailableModels
+
+
+@web_app.post("/chat/stream", response_class=StreamingResponse)
+async def chat_stream(request: ChatStreamRequest):
+    def stream():
+        response = completion(
+            model=request.model, messages=request.messages, stream=True
+        )
+        for part in response:
+            yield part.choices[0].delta.content or ""
+
+    return StreamingResponse(stream(), media_type="text/event-stream")
+
+
+# register the app
+image = Image.debian_slim(python_version="3.12").pip_install("litellm")
+
+
 @stub.function(
+    image=image,
     secrets=[
         modal.Secret.from_name("router-auth-token"),
-    ]
+        modal.Secret.from_name("openai-api-key"),
+    ],
+    enable_memory_snapshot=True,
 )
 @modal.asgi_app()
 def app():

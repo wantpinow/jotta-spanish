@@ -61,4 +61,24 @@ export class DefaultService {
       },
     });
   }
+
+  /**
+   * Chat Stream
+   * @returns any Successful Response
+   * @throws ApiError
+   */
+  public static chatStreamChatStreamPost(
+    data: $OpenApiTs["/chat/stream"]["post"]["req"],
+  ): CancelablePromise<$OpenApiTs["/chat/stream"]["post"]["res"][200]> {
+    const { requestBody } = data;
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/chat/stream",
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        422: `Validation Error`,
+      },
+    });
+  }
 }

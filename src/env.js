@@ -37,6 +37,7 @@ export const env = createEnv({
     MODAL_USER: z.string(),
     MODAL_ENV: z.string(),
     MODAL_ROUTER_APP: z.string(),
+    MODAL_ROUTER_AUTH_TOKEN: z.string(),
   },
 
   /**
@@ -65,6 +66,7 @@ export const env = createEnv({
     MODAL_USER: process.env.MODAL_USER,
     MODAL_ENV: process.env.MODAL_ENV,
     MODAL_ROUTER_APP: process.env.MODAL_ROUTER_APP,
+    MODAL_ROUTER_AUTH_TOKEN: process.env.MODAL_ROUTER_AUTH_TOKEN,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

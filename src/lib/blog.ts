@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { env } from "~/env";
 
 export type BlogPostTag =
   | "Announcements"
@@ -25,6 +26,7 @@ export type BlogPost = {
   tags: BlogPostTag[];
   published: boolean;
 };
+
 export const getAllBlogs = () => {
   const blogDir = "blogs";
   const files = fs.readdirSync(path.join(blogDir));
@@ -33,7 +35,7 @@ export const getAllBlogs = () => {
     return getBlogBySlug(slug);
   });
 
-  if (process.env.NODE_ENV === "production") {
+  if (env.NODE_ENV === "production") {
     return blogs.filter((blog) => blog.published);
   }
 
