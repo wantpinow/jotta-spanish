@@ -6,19 +6,19 @@ import { request as __request } from "./core/request";
 import type { $OpenApiTs } from "./models";
 
 export class DefaultService {
-  /**
-   * Ping
-   * @returns unknown Successful Response
-   * @throws ApiError
-   */
-  public static pingGet(): CancelablePromise<
-    $OpenApiTs["/"]["get"]["res"][200]
-  > {
-    return __request(OpenAPI, {
-      method: "GET",
-      url: "/",
-    });
-  }
+  // /**
+  //  * Ping
+  //  * @returns unknown Successful Response
+  //  * @throws ApiError
+  //  */
+  // public static pingGet(): CancelablePromise<
+  //   $OpenApiTs["/"]["get"]["res"][200]
+  // > {
+  //   return __request(OpenAPI, {
+  //     method: "GET",
+  //     url: "/",
+  //   });
+  // }
 
   /**
    * Embed

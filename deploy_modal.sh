@@ -14,3 +14,6 @@ curl "https://${MODAL_USER}-${MODAL_ENV}--${MODAL_ROUTER_APP}.modal.run/openapi.
 bun install
 
 bun generate-client
+
+# update zod schema
+bun run ts-to-zod src/lib/python_client/models.ts src/lib/python_client/zod_schema.ts

@@ -46,16 +46,16 @@ export type ValidationError = {
 };
 
 export type $OpenApiTs = {
-  "/": {
-    get: {
-      res: {
-        /**
-         * Successful Response
-         */
-        200: unknown;
-      };
-    };
-  };
+  // "/": {
+  //   get: {
+  //     res: {
+  //       /**
+  //        * Successful Response
+  //        */
+  //       200: unknown;
+  //     };
+  //   };
+  // };
   "/embed": {
     get: {
       req: {

@@ -29,12 +29,11 @@ export default async function RootLayout({
 
   OpenAPI.BASE = `https://${env.MODAL_USER}-${env.MODAL_ENV}--${env.MODAL_ROUTER_APP}.modal.run`;
   OpenAPI.interceptors.request.use((request) => {
-    // add headers
     request.headers = {
       ...request.headers,
       Authorization: `Bearer ${env.MODAL_ROUTER_AUTH_TOKEN}`,
     };
-    return request; // <-- must return request
+    return request;
   });
 
   return (

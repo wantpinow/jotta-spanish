@@ -7,7 +7,7 @@
     "build": "next build",
     "db:push": "drizzle-kit push:sqlite",
     "db:studio": "drizzle-kit studio",
-    "generate-client":"openapi-ts --input https://${MODAL_USER}-${MODAL_ENV}--${MODAL_ROUTER_APP}.modal.run/openapi.json --output ./src/lib/python_client",
+    "generate-client": "openapi-ts --input https://${MODAL_USER}-${MODAL_ENV}--${MODAL_ROUTER_APP}.modal.run/openapi.json --output ./src/lib/python_client",
     "dev": "next dev --turbo",
     "lint": "next lint",
     "start": "next start",
@@ -86,6 +86,7 @@
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.4.1",
+    "ts-to-zod": "^3.8.3",
     "typescript": "^5.4.2"
   },
   "ct3aMetadata": {
