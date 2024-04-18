@@ -40,6 +40,7 @@ class Model:
                 "pos": token.pos_,
                 "dep": token.dep_,
                 "lemma": token.lemma_,
+                "is_sent_start": token.is_sent_start,
             }
             for token in doc
         ]

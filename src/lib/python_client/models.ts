@@ -10,6 +10,40 @@ export type ChatStreamRequest = {
   model: AvailableModels;
 };
 
+/**
+ * An enumeration.
+ */
+export type DepTag =
+  | "ROOT"
+  | "acl"
+  | "advcl"
+  | "advmod"
+  | "amod"
+  | "appos"
+  | "aux"
+  | "case"
+  | "cc"
+  | "ccomp"
+  | "compound"
+  | "conj"
+  | "cop"
+  | "csubj"
+  | "dep"
+  | "det"
+  | "expl"
+  | "fixed"
+  | "flat"
+  | "iobj"
+  | "mark"
+  | "nmod"
+  | "nsubj"
+  | "nummod"
+  | "obj"
+  | "obl"
+  | "parataxis"
+  | "punct"
+  | "xcomp";
+
 export type EmbeddingResponse = {
   data: Array<number>;
 };
@@ -30,6 +64,28 @@ export type PingResponse = {
 /**
  * An enumeration.
  */
+export type PosTag =
+  | "ADJ"
+  | "ADP"
+  | "PUNCT"
+  | "ADV"
+  | "AUX"
+  | "SYM"
+  | "INTJ"
+  | "CCONJ"
+  | "X"
+  | "NOUN"
+  | "DET"
+  | "PROPN"
+  | "NUM"
+  | "VERB"
+  | "PART"
+  | "PRON"
+  | "SCONJ";
+
+/**
+ * An enumeration.
+ */
 export type Role = "system" | "user" | "assistant";
 
 export type SpacyProcessResponse = {
@@ -38,9 +94,10 @@ export type SpacyProcessResponse = {
 
 export type SpacyToken = {
   text: string;
-  pos: string;
-  dep: string;
+  pos: PosTag;
+  dep: DepTag;
   lemma: string;
+  is_sent_start: boolean;
 };
 
 export type ValidationError = {

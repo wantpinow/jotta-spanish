@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Textarea } from "~/components/ui/textarea";
+import { SpacyToken } from "~/lib/python_client";
 import { api } from "~/trpc/react";
 
 export const MessageAnalysisContext = createContext<
@@ -10,6 +11,7 @@ export const MessageAnalysisContext = createContext<
       value: string;
       setValue: (value: string) => void;
       embedding?: number[];
+      tokens?: SpacyToken[];
       loading: boolean;
     }
   | undefined
@@ -23,33 +25,44 @@ export function MessageAnalysisProvider({
   children: React.ReactNode;
 }) {
   const [value, setValue] = useState<string>(initialValue ?? "");
-  const [embedding, setEmbedding] = useState<number[] | undefined>(undefined);
+  const [embedding, setEmbedding] = useState<number[] | undefined>([]);
+  const [tokens, setTokens] = useState<SpacyToken[] | undefined>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const embed = api.modal.embed.useMutation({
-    onMutate: () => {
-      setEmbedding(undefined);
-    },
     onSuccess: (data) => {
       setEmbedding(data);
     },
   });
+  const process = api.modal.process.useMutation({
+    onSuccess: (data) => {
+      setTokens(data);
+    },
+  });
 
-  useEffect(() => {
+  const updateValue = async (value: string) => {
+    setValue(value);
+    setEmbedding(undefined);
+    setTokens(undefined);
     embed.mutate({ text: value });
-  }, [value, embed]);
+    process.mutate({ text: value });
+  };
 
   useEffect(() => {
     if (embedding === undefined) {
       setLoading(true);
       return;
     }
+    if (tokens === undefined) {
+      setLoading(true);
+      return;
+    }
     setLoading(false);
-  }, [embedding]);
+  }, [embedding, tokens]);
 
   return (
     <MessageAnalysisContext.Provider
-      value={{ value, setValue, embedding, loading }}
+      value={{ value, setValue: updateValue, embedding, tokens, loading }}
     >
       {children}
     </MessageAnalysisContext.Provider>

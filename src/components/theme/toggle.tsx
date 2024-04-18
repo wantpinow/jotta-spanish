@@ -55,13 +55,7 @@ export function ThemeToggle({ meme = false }: { meme?: boolean }) {
     "1942",
     "1990",
   ];
-  const modifiers = [
-    "probably",
-    "maybe",
-    "possibly",
-    "potentially",
-    "arguably",
-  ];
+  const modifiers = ["probably", "maybe", "potentially", "alledgedly"];
 
   return (
     <DropdownMenu>

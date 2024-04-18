@@ -3,6 +3,38 @@ import { z } from "zod";
 
 export const availableModelsSchema = z.literal("gpt-3.5-turbo");
 
+export const depTagSchema = z.union([
+  z.literal("ROOT"),
+  z.literal("acl"),
+  z.literal("advcl"),
+  z.literal("advmod"),
+  z.literal("amod"),
+  z.literal("appos"),
+  z.literal("aux"),
+  z.literal("case"),
+  z.literal("cc"),
+  z.literal("ccomp"),
+  z.literal("compound"),
+  z.literal("conj"),
+  z.literal("cop"),
+  z.literal("csubj"),
+  z.literal("dep"),
+  z.literal("det"),
+  z.literal("expl"),
+  z.literal("fixed"),
+  z.literal("flat"),
+  z.literal("iobj"),
+  z.literal("mark"),
+  z.literal("nmod"),
+  z.literal("nsubj"),
+  z.literal("nummod"),
+  z.literal("obj"),
+  z.literal("obl"),
+  z.literal("parataxis"),
+  z.literal("punct"),
+  z.literal("xcomp"),
+]);
+
 export const embeddingResponseSchema = z.object({
   data: z.array(z.number()),
 });
@@ -23,11 +55,32 @@ export const pingResponseSchema = z.object({
   message: z.string(),
 });
 
+export const posTagSchema = z.union([
+  z.literal("ADJ"),
+  z.literal("ADP"),
+  z.literal("PUNCT"),
+  z.literal("ADV"),
+  z.literal("AUX"),
+  z.literal("SYM"),
+  z.literal("INTJ"),
+  z.literal("CCONJ"),
+  z.literal("X"),
+  z.literal("NOUN"),
+  z.literal("DET"),
+  z.literal("PROPN"),
+  z.literal("NUM"),
+  z.literal("VERB"),
+  z.literal("PART"),
+  z.literal("PRON"),
+  z.literal("SCONJ"),
+]);
+
 export const spacyTokenSchema = z.object({
   text: z.string(),
-  pos: z.string(),
-  dep: z.string(),
+  pos: posTagSchema,
+  dep: depTagSchema,
   lemma: z.string(),
+  is_sent_start: z.boolean(),
 });
 
 export const messageSchema = z.object({

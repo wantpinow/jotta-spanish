@@ -25,6 +25,43 @@ export const $ChatStreamRequest = {
   },
 } as const;
 
+export const $DepTag = {
+  title: "DepTag",
+  enum: [
+    "ROOT",
+    "acl",
+    "advcl",
+    "advmod",
+    "amod",
+    "appos",
+    "aux",
+    "case",
+    "cc",
+    "ccomp",
+    "compound",
+    "conj",
+    "cop",
+    "csubj",
+    "dep",
+    "det",
+    "expl",
+    "fixed",
+    "flat",
+    "iobj",
+    "mark",
+    "nmod",
+    "nsubj",
+    "nummod",
+    "obj",
+    "obl",
+    "parataxis",
+    "punct",
+    "xcomp",
+  ],
+  type: "string",
+  description: "An enumeration.",
+} as const;
+
 export const $EmbeddingResponse = {
   title: "EmbeddingResponse",
   required: ["data"],
@@ -81,6 +118,31 @@ export const $PingResponse = {
   },
 } as const;
 
+export const $PosTag = {
+  title: "PosTag",
+  enum: [
+    "ADJ",
+    "ADP",
+    "PUNCT",
+    "ADV",
+    "AUX",
+    "SYM",
+    "INTJ",
+    "CCONJ",
+    "X",
+    "NOUN",
+    "DET",
+    "PROPN",
+    "NUM",
+    "VERB",
+    "PART",
+    "PRON",
+    "SCONJ",
+  ],
+  type: "string",
+  description: "An enumeration.",
+} as const;
+
 export const $Role = {
   title: "Role",
   enum: ["system", "user", "assistant"],
@@ -105,7 +167,7 @@ export const $SpacyProcessResponse = {
 
 export const $SpacyToken = {
   title: "SpacyToken",
-  required: ["text", "pos", "dep", "lemma"],
+  required: ["text", "pos", "dep", "lemma", "is_sent_start"],
   type: "object",
   properties: {
     text: {
@@ -113,16 +175,18 @@ export const $SpacyToken = {
       type: "string",
     },
     pos: {
-      title: "Pos",
-      type: "string",
+      $ref: "#/components/schemas/PosTag",
     },
     dep: {
-      title: "Dep",
-      type: "string",
+      $ref: "#/components/schemas/DepTag",
     },
     lemma: {
       title: "Lemma",
       type: "string",
+    },
+    is_sent_start: {
+      title: "Is Sent Start",
+      type: "boolean",
     },
   },
 } as const;

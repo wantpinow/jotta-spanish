@@ -707,6 +707,16 @@ export const LLM_MODEL_CONFIGS = {
     mode: "chat",
     supports_function_calling: true,
   },
+  "mistral/open-mixtral-8x7b": {
+    max_tokens: 8191,
+    max_input_tokens: 32000,
+    max_output_tokens: 8191,
+    input_cost_per_token: 0.000002,
+    output_cost_per_token: 0.000006,
+    litellm_provider: "mistral",
+    mode: "chat",
+    supports_function_calling: true,
+  },
   "mistral/mistral-embed": {
     max_tokens: 8192,
     max_input_tokens: 8192,
@@ -1031,6 +1041,7 @@ export const LLM_MODEL_CONFIGS = {
     litellm_provider: "vertex_ai-language-models",
     mode: "chat",
     supports_function_calling: true,
+    supports_tool_choice: true,
     source:
       "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#foundation_models",
   },
@@ -1043,6 +1054,7 @@ export const LLM_MODEL_CONFIGS = {
     litellm_provider: "vertex_ai-language-models",
     mode: "chat",
     supports_function_calling: true,
+    supports_tool_choice: true,
     source:
       "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#foundation_models",
   },
@@ -1055,6 +1067,7 @@ export const LLM_MODEL_CONFIGS = {
     litellm_provider: "vertex_ai-language-models",
     mode: "chat",
     supports_function_calling: true,
+    supports_tool_choice: true,
     source:
       "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#foundation_models",
   },
@@ -1067,6 +1080,7 @@ export const LLM_MODEL_CONFIGS = {
     litellm_provider: "vertex_ai-language-models",
     mode: "chat",
     supports_function_calling: false,
+    supports_tool_choice: true,
     source:
       "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#foundation_models",
   },
@@ -1310,6 +1324,7 @@ export const LLM_MODEL_CONFIGS = {
     mode: "chat",
     supports_function_calling: true,
     supports_vision: true,
+    supports_tool_choice: true,
     source:
       "https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models#foundation_models",
   },
@@ -1323,6 +1338,7 @@ export const LLM_MODEL_CONFIGS = {
     mode: "chat",
     supports_function_calling: true,
     supports_vision: true,
+    supports_tool_choice: true,
     source: "https://ai.google.dev/models/gemini",
   },
   "gemini/gemini-pro-vision": {
