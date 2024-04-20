@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
 import { Textarea } from "~/components/ui/textarea";
 import { SpacyToken } from "~/lib/python_client";
@@ -33,10 +34,18 @@ export function MessageAnalysisProvider({
     onSuccess: (data) => {
       setEmbedding(data);
     },
+    onError: (error) => {
+      toast.error(error.message);
+      setEmbedding([]);
+    },
   });
   const process = api.modal.process.useMutation({
     onSuccess: (data) => {
       setTokens(data);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+      setTokens([]);
     },
   });
 

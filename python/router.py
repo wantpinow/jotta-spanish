@@ -44,6 +44,15 @@ class PingResponse(BaseModel):
     message: str
 
 
+class EndpointStatus(str, Enum):
+    UP = "UP"
+    DOWN = "DOWN"
+
+
+class HealthResponse(BaseModel):
+    status: EndpointStatus
+
+
 @web_app.get("/", response_model=PingResponse)
 async def ping():
     return {"message": "success"}
@@ -57,6 +66,13 @@ class EmbeddingResponse(BaseModel):
 @web_app.get("/embed", response_model=EmbeddingResponse)
 async def embed(text: str):
     return {"data": embedding_model.predict.remote(text)}
+
+
+@web_app.get("/embed/health", response_model=HealthResponse)
+async def embed_health():
+    print(type(embedding_model))
+    app_id = embedding_model.app_id()
+    return {"status": EndpointStatus.UP if app_id else EndpointStatus.DOWN}
 
 
 # spacy processing

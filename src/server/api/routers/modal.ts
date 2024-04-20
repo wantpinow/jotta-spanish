@@ -1,7 +1,7 @@
 import { env } from "~/env";
 import { OpenAPI } from "~/lib/python_client";
 import { openApiTsSchema } from "~/lib/python_client/zod_schema";
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
 OpenAPI.BASE = `https://${env.MODAL_USER}-${env.MODAL_ENV}--${env.MODAL_ROUTER_APP}.modal.run`;
 OpenAPI.interceptors.request.use((request) => {
@@ -13,13 +13,13 @@ OpenAPI.interceptors.request.use((request) => {
 });
 
 export const modalRouter = createTRPCRouter({
-  embed: publicProcedure
+  embed: protectedProcedure
     .input(openApiTsSchema.shape["/embed"].shape.get.shape.req)
     .mutation(async ({ ctx, input }) => {
       const response = await ctx.modal.embedEmbedGet(input);
       return response.data;
     }),
-  process: publicProcedure
+  process: protectedProcedure
     .input(openApiTsSchema.shape["/process"].shape.get.shape.req)
     .mutation(async ({ ctx, input }) => {
       const response = await ctx.modal.processProcessGet(input);

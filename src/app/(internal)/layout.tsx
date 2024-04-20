@@ -2,18 +2,19 @@ import "~/styles/globals.css";
 
 import { ThemeToggle } from "~/components/theme/toggle";
 import { OpenAiKeyDialog } from "~/components/openai/key-dialog";
-import { getServerAuthSession } from "~/server/auth";
+// import { getServerAuthSession } from "~/server/auth";
 import { ShapesIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { env } from "~/env";
+import { currentUser } from "@clerk/nextjs";
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerAuthSession();
+  const user = await currentUser();
   const openAIKey = env.OPENAI_API_KEY;
   return (
     <>
@@ -29,9 +30,9 @@ export default async function RootLayout({
             <OpenAiKeyDialog key={openAIKey} />
             <ThemeToggle />
             <Button variant="secondary" asChild>
-              <Link href={session ? "/api/auth/signout" : "/api/auth/signin"}>
-                {session ? "Logout" : "Login"}
-              </Link>
+              {/* <Link href={user ? "/api/auth/signout" : "/api/auth/signin"}>
+                {user ? "Logout" : "Login"}
+              </Link> */}
             </Button>
           </div>
         </div>
